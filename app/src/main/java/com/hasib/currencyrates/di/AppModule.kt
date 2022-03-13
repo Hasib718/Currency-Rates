@@ -1,11 +1,15 @@
 package com.hasib.currencyrates.di
 
+import android.content.Context
+import androidx.room.Room
 import com.hasib.currencyrates.BuildConfig
-import com.hasib.currencyrates.data.source.remote.country.CountryRemoteDataSource
+import com.hasib.currencyrates.data.source.local.db.AppDatabase
+import com.hasib.currencyrates.data.source.local.db.DBConstant
 import com.hasib.currencyrates.data.source.remote.country.CountryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,12 +22,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    fun provideCountryService(retrofit: Retrofit): CountryService = retrofit.create(CountryService::class.java)
-
     @Singleton
     @Provides
-    fun provideCountryRemoteDataSource(countryService: CountryService) = CountryRemoteDataSource(countryService)
+    fun provideCountryService(retrofit: Retrofit): CountryService =
+        retrofit.create(CountryService::class.java)
 
     @Singleton
     @Provides
@@ -40,5 +42,11 @@ object AppModule {
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(3, TimeUnit.MINUTES)
             .writeTimeout(10, TimeUnit.MINUTES)
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, DBConstant.DATABASE_NAME)
             .build()
 }

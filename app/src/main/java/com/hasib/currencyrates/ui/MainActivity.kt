@@ -1,4 +1,4 @@
-package com.hasib.currencyrates.ui.currencyrates
+package com.hasib.currencyrates.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,9 +1,10 @@
 package com.hasib.currencyrates.data.repo
 
 import com.hasib.currencyrates.helper.util.Resource
-import com.hasib.currencyrates.model.CountryResponse
+import com.hasib.currencyrates.model.CountryItem
+import kotlinx.coroutines.flow.Flow
 
 interface CountryRepository {
 
-    suspend fun loadAllCountries(): Resource<List<CountryResponse>>
+    fun loadAllCountries(): Flow<Resource<List<CountryItem>>>
 }
