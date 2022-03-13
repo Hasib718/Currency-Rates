@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DropDownSelector">
+        <attr name="showSelectionBox" format="boolean" />
+        <attr name="showSelectionNameExtra" format="boolean" />
+        <attr name="showSelected" format="boolean" />
+        <attr name="showSelectorIcon" format="boolean" />
+        <attr name="selectionName" format="reference" />
+        <attr name="selectionNameExtra" format="reference" />
+        <attr name="selected" format="reference" />
+    </declare-styleable>
+</resources>

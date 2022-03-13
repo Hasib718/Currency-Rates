@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/currencyRateCard"
+        app:cardCornerRadius="@dimen/space_m"
+        android:layout_margin="@dimen/space_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:id="@+id/countryFlag"
+                android:layout_margin="@dimen/space_m"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/currencyInfoBox"
+                app:layout_constraintHorizontal_weight="1"
+                tools:src="@tools:sample/avatars"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CurrencyRates.CornerSize50Percent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/currencyInfoBox"
+                android:layout_marginStart="@dimen/space_l"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toEndOf="@id/countryFlag"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/currencyRate">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/currencyName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/countryName"
+                    android:textAlignment="textStart"
+                    tools:text="@tools:sample/cities"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/countryName"
+                    android:lines="1"
+                    android:layout_marginTop="@dimen/space_sm"
+                    app:layout_constraintTop_toBottomOf="@id/currencyName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textAlignment="textStart"
+                    tools:text="@tools:sample/cities" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/currencyRate"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/currencyInfoBox"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="10000"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
