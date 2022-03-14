@@ -17,11 +17,11 @@ data class CountryResponse(
 )
 
 fun CountryResponse.toCountryEntity(): CountryEntity {
-    var cCode: String
+    var cCode = ""
     var cName = ""
     var cSymbol = ""
 
-    currencies.let {
+    currencies?.let {
         cCode =
             if (currencies.keys.size > 1) currencies.keys.joinToString(separator = "#") else currencies.keys.first()
         cName =

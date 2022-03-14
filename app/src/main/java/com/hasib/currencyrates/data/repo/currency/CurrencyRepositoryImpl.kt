@@ -1,68 +1,58 @@
 package com.hasib.currencyrates.data.repo.currency
 
 import androidx.room.withTransaction
+import com.hasib.currencyrates.data.AppConstant
 import com.hasib.currencyrates.data.source.local.db.AppDatabase
+import com.hasib.currencyrates.data.source.local.preference.AppPreference
 import com.hasib.currencyrates.data.source.remote.CurrencyService
 import com.hasib.currencyrates.helper.util.Resource
 import com.hasib.currencyrates.helper.util.networkBoundResource
-import com.hasib.currencyrates.model.CurrencyInfoEntity
+import com.hasib.currencyrates.model.CountryItem
 import com.hasib.currencyrates.model.CurrencyRateEntity
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlin.math.abs
 
+@ViewModelScoped
 class CurrencyRepositoryImpl @Inject constructor(
     private val api: CurrencyService,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val preference: AppPreference
 ) : CurrencyRepository {
-    private val currencyInfoDao = db.currencyInfoDao()
     private val currencyRateDao = db.currencyRateDao()
 
     override fun loadLatestCurrencyRates(
-        appId: String,
-        base: String
-    ): Flow<Resource<List<CurrencyRateEntity>>> =
+        appId: String
+    ): Flow<Resource<List<CountryItem>>> =
         networkBoundResource(
             query = {
-                currencyRateDao.getLatestCurrencyRates()
+                currencyRateDao.getCountriesLatestCurrencyRate()
             },
             fetch = {
-                api.getLatestCurrencyRates(appId, base)
+                val response = api.getLatestCurrencyRates(appId)
+                if (response.isSuccessful) {
+                    preference.storeCurrencyRatesFetchingTime(System.currentTimeMillis())
+                }
+                response.body()
             },
-            saveFetchResult = { rates ->
+            saveFetchResult = { response ->
                 db.withTransaction {
                     currencyRateDao.deleteAllCurrencyRates()
-                    currencyRateDao.insertCurrencyRates(rates.rates.map {
+                    currencyRateDao.insertCurrencyRates(response!!.rates.map {
                         CurrencyRateEntity(
                             it.key,
                             it.value
                         )
                     })
                 }
-            }
-        )
-
-    override fun loadCurrenciesInfo(): Flow<Resource<List<CurrencyInfoEntity>>> =
-        networkBoundResource(
-            query = {
-                currencyInfoDao.getCurrenciesInfo()
-            },
-            fetch = {
-                api.getCurrenciesInfo()
-            },
-            saveFetchResult = { currenciesInfo ->
-                db.withTransaction {
-                    currencyInfoDao.deleteAllCurrencies()
-                    currencyInfoDao.insertCurrencies(currenciesInfo.map {
-                        CurrencyInfoEntity(
-                            it.key,
-                            it.value
-                        )
-                    })
-                }
-
             },
             shouldFetch = {
-                it.isEmpty()
+                val long = preference.currencyRatesFetchingTimeFlow.first()
+
+                return@networkBoundResource abs(long - System.currentTimeMillis()) >= AppConstant.CURRENCY_RATES_FETCHING_TIME_PERIOD
             }
         )
+
 }

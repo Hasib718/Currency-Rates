@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.hasib.currencyrates.model.CountryItem
 import com.hasib.currencyrates.model.CurrencyRateEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,6 @@ interface CurrencyRateDao {
     @Query("DELETE FROM ${DBConstant.TABLE_CURRENCY_RATE}")
     suspend fun deleteAllCurrencyRates()
 
-    @Query("SELECT * FROM ${DBConstant.TABLE_CURRENCY_RATE}")
-    fun getLatestCurrencyRates(): Flow<List<CurrencyRateEntity>>
+    @Query("SELECT commonName, currencyName, rate, flagUrl FROM Country INNER JOIN CurrencyRate ON Country.currencyCode LIKE CurrencyRate.code ORDER BY commonName")
+    fun getCountriesLatestCurrencyRate(): Flow<List<CountryItem>>
 }

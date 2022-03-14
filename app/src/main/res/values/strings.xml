@@ -10,4 +10,5 @@
     <string name="country_name">Country Name:</string>
     <string name="country_name_usa">United States</string>
     <string name="currency_name_dollar">Dollar</string>
+    <string name="error_message">Error Message</string>
 </resources>

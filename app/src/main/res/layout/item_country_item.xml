@@ -4,7 +4,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/currencyRateCard"
         app:cardCornerRadius="@dimen/space_m"
-        android:layout_margin="@dimen/space_m"
+        android:layout_marginTop="@dimen/space_m"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_marginEnd="@dimen/space_m"
+        app:contentPadding="@dimen/space_m"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -12,18 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:id="@+id/countryFlag"
-                android:layout_margin="@dimen/space_m"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/currencyInfoBox"
                 app:layout_constraintHorizontal_weight="1"
-                tools:src="@tools:sample/avatars"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CurrencyRates.CornerSize50Percent" />
+                tools:src="@tools:sample/avatars" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -46,7 +47,7 @@
                     app:layout_constraintBottom_toTopOf="@id/countryName"
                     android:textAlignment="textStart"
                     tools:text="@tools:sample/cities"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     app:layout_constraintVertical_chainStyle="packed" />
 
@@ -74,9 +75,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="textEnd"
                 tools:text="10000"
                 android:textColor="@color/black"
-                android:textSize="22sp" />
+                android:textSize="20sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
