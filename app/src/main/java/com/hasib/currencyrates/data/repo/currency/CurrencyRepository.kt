@@ -9,4 +9,6 @@ interface CurrencyRepository {
     fun loadLatestCurrencyRates(
         appId: String
     ): Flow<Resource<List<CountryItem>>>
+
+    suspend fun loadAllCurrenciesInfo()
 }

@@ -26,6 +26,7 @@ class CurrencyRatesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             countryRepository.loadAllCountries("${BuildConfig.BASE_URL_COUNTRY}all")
+            currencyRepository.loadAllCurrenciesInfo()
         }
     }
 }

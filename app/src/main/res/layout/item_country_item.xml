@@ -70,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:id="@+id/currencyRate"
-                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/currencyInfoBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

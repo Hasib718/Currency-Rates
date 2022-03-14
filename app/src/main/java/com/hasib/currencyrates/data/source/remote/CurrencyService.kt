@@ -11,4 +11,7 @@ interface CurrencyService {
     suspend fun getLatestCurrencyRates(
         @Query("app_id") appId: String
     ): Response<CurrencyRateResponse>
+
+    @GET("currencies.json")
+    suspend fun getCurrenciesInfo(): Response<Map<String, String>>
 }

@@ -34,7 +34,7 @@ class CountryItemAdapter :
                     .circleCrop()
                     .into(countryFlag)
 
-                currencyName.text = item.currencyName
+                currencyName.text = item.fullName
                 countryName.text = item.commonName
                 currencyRate.text = item.rate.roundOffDecimal().toString()
             }

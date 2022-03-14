@@ -11,4 +11,5 @@ object DBConstant {
     const val COLUMN_COUNTRY_FLAG_URL = "flagUrl"
 
     const val TABLE_CURRENCY_RATE = "CurrencyRate"
+    const val TABLE_CURRENCY_INFO = "CurrencyInfo"
 }

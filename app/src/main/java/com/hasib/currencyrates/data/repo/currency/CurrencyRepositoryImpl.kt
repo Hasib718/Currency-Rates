@@ -8,10 +8,13 @@ import com.hasib.currencyrates.data.source.remote.CurrencyService
 import com.hasib.currencyrates.helper.util.Resource
 import com.hasib.currencyrates.helper.util.networkBoundResource
 import com.hasib.currencyrates.model.CountryItem
+import com.hasib.currencyrates.model.CurrencyInfo
 import com.hasib.currencyrates.model.CurrencyRateEntity
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -22,6 +25,7 @@ class CurrencyRepositoryImpl @Inject constructor(
     private val preference: AppPreference
 ) : CurrencyRepository {
     private val currencyRateDao = db.currencyRateDao()
+    private val currencyInfoDao = db.currencyInfoDao()
 
     override fun loadLatestCurrencyRates(
         appId: String
@@ -55,4 +59,10 @@ class CurrencyRepositoryImpl @Inject constructor(
             }
         )
 
+    override suspend fun loadAllCurrenciesInfo(): Unit = withContext(Dispatchers.IO) {
+        if (currencyInfoDao.getCurrenciesInfo().first().isEmpty()) {
+            api.getCurrenciesInfo().body()?.map { CurrencyInfo(it.key, it.value) }
+                ?.let { currencyInfoDao.insertCurrenciesInfo(it) }
+        }
+    }
 }

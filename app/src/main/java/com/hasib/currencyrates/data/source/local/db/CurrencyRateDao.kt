@@ -17,6 +17,6 @@ interface CurrencyRateDao {
     @Query("DELETE FROM ${DBConstant.TABLE_CURRENCY_RATE}")
     suspend fun deleteAllCurrencyRates()
 
-    @Query("SELECT commonName, currencyName, rate, flagUrl FROM Country INNER JOIN CurrencyRate ON Country.currencyCode LIKE CurrencyRate.code ORDER BY commonName")
+    @Query("SELECT DISTINCT commonName, fullName, rate, flagUrl FROM Country INNER JOIN CurrencyRate CR ON Country.currencyCode LIKE '%' || CR.code || '%' INNER JOIN CurrencyInfo CI on CR.code = CI.code ORDER BY commonName")
     fun getCountriesLatestCurrencyRate(): Flow<List<CountryItem>>
 }
