@@ -7,6 +7,10 @@ plugins {
     id "androidx.navigation.safeargs"
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdk 32
 
@@ -19,7 +23,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField("String", "CURRENCY_APP_ID", keystoreProperties['currencyAppId'])
         buildConfigField("String", "BASE_URL_COUNTRY", "\"${countryBaseUrl}\"")
+        buildConfigField("String", "BASE_URL_CURRENCY", "\"${currencyBaseUrl}\"")
     }
 
     buildTypes {

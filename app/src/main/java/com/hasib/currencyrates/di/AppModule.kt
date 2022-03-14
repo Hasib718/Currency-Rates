@@ -5,7 +5,8 @@ import androidx.room.Room
 import com.hasib.currencyrates.BuildConfig
 import com.hasib.currencyrates.data.source.local.db.AppDatabase
 import com.hasib.currencyrates.data.source.local.db.DBConstant
-import com.hasib.currencyrates.data.source.remote.country.CountryService
+import com.hasib.currencyrates.data.source.remote.CountryService
+import com.hasib.currencyrates.data.source.remote.CurrencyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideCurrencyService(retrofit: Retrofit): CurrencyService =
+        retrofit.create(CurrencyService::class.java)
 
     @Singleton
     @Provides

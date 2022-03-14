@@ -9,4 +9,8 @@ object DBConstant {
     const val COLUMN_COUNTRY_CURRENCY_CODE = "currencyCode"
     const val COLUMN_COUNTRY_CURRENCY_NAME = "currencyName"
     const val COLUMN_COUNTRY_FLAG_URL = "flagUrl"
+
+    const val TABLE_CURRENCY_INFO = "CurrencyInfo"
+
+    const val TABLE_CURRENCY_RATE = "CurrencyRate"
 }

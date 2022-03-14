@@ -3,7 +3,7 @@ package com.hasib.currencyrates.ui.currencyrates
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.hasib.currencyrates.data.repo.CountryRepository
+import com.hasib.currencyrates.data.repo.country.CountryRepository
 import com.hasib.currencyrates.helper.util.Resource
 import com.hasib.currencyrates.model.CountryItem
 import dagger.hilt.android.lifecycle.HiltViewModel

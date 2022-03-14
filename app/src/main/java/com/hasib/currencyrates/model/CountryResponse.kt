@@ -17,7 +17,7 @@ data class CountryResponse(
 )
 
 fun CountryResponse.toCountryEntity(): CountryEntity {
-    var cCode = ""
+    var cCode: String
     var cName = ""
     var cSymbol = ""
 
